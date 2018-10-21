@@ -1,5 +1,5 @@
 
-from api.session import PuppetBotSession
+from api.session import AudioBotSession
 from api.base import Context
 from api.authenticator import CognitoAuthenticator
 from api.triggers import RokgnitionTrigger
@@ -35,7 +35,7 @@ def start(ctx):
 
 @click.group()
 @click.pass_context
-def audiobot(ctx):
+def chatbot(ctx):
     config = yaml.load(open('config.yaml'))
     ctx.obj = Context(config=config, logger=LOGGER)
     ctx.obj.tmp_dir = tempfile.mkdtemp()
@@ -49,7 +49,8 @@ def start(ctx):
     bot_session = AudioBotSession(ctx)
     bot_session.start()
 
-cli = click.CommandCollection(sources=[puppetbot, cli2])
+#cli = click.CommandCollection(sources=[puppetbot, cli2])
 
 if __name__ == '__main__':
-    cli()
+    #cli()
+    chatbot(obj={})
