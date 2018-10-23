@@ -1,6 +1,7 @@
 from abc import ABCMeta
 from base import BaseClass
-from warrant.aws_srp import AWSSRP
+#from warrant.aws_srp import AWSSRP
+from warrant import Cognito
 import boto3
 import time 
 
@@ -68,11 +69,12 @@ class CognitoAuthenticator(Authenticator):
         self.refresh()
 
     def _get_auth_token(self):
-        aws = AWSSRP(username=self._username,
-                    password=self._password,
-                    pool_id=self._cognito_pool_id,
-                    client_id=self._client_id,
-                    pool_region=self._region_name)
+        aws = Cognito('us-east-1_oR3RSSdel','3qg7ilgbch61jtut59qut6fdo2',
+            username='raspberrypi',
+            access_key='AKIAI33EK4E4EDSBMNQ',
+            secret_key='gu8ziINx9YXL7j0aW9l2585CTFMkGLtF9WV/afa')
+
+        aws.authenticate(password='PuppetBoy334!')
 
         token = aws.authenticate_user()
         return token['AuthenticationResult']['IdToken']
