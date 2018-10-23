@@ -75,6 +75,7 @@ class CognitoAuthenticator(Authenticator):
             secret_key='gu8ziINx9YXL7j0aW9l2585CTFMkGLtF9WV/afa')
 
         aws.authenticate(password='PuppetBoy334!')
+        aws.authenticate(region_name='us-west-2')
 
         token = aws.authenticate_user()
         return token['AuthenticationResult']['IdToken']
