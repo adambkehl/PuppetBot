@@ -21,7 +21,7 @@ CognitoAuthenticator:
   cognito_pool_id: xxxxx
   client_id: xxxxx
   identity_pool_id: xxxxx
-  region_name: xxxxx
+  region_name: us-west-2
 
 VisemePlayer:
   ServoController:
