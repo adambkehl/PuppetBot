@@ -58,9 +58,11 @@ class AudioBotSession(Session):
             if self.session_state['dialogState'] in [DialogState.Fulfilled, DialogState.Failed] :
                 self.session_is_live = False
                 if self.session_state['dialogState'] == DialogState.Fulfilled :
-                    # todo something 
+                    # todo something
+                    pass
 
             time.sleep(self._delay_between_dialogs)
+
             if self.session_is_live:
                 req_audio_obj = self._audio_recorder.get_recording()
 
