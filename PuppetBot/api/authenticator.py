@@ -64,22 +64,29 @@ class CognitoAuthenticator(Authenticator):
         super(CognitoAuthenticator, self).__init__(ctx)
         self._pool_full_name = 'cognito-idp.{}.amazonaws.com/{}'.format(
                                         self._cognito_pool_id.split('_')[0], self._cognito_pool_id)
+        #region name not passed
         self._cognito_identity_client = boto3.client('cognito-identity',region_name='us-west-2')
         self._identity_id = self._get_cognito_identity_id()
         self.refresh()
 
     def _get_auth_token(self):
-        aws = Cognito('us-east-1_oR3RSSdel','3qg7ilgbch61jtut59qut6fdo2',
-            username='raspberrypi',
-            access_key='AKIAI33EK4E4EDSBMNQ',
-            secret_key='gu8ziINx9YXL7j0aW9l2585CTFMkGLtF9WV/afa')
-
-        aws.authenticate(password='PuppetBoy334!')
-        aws.authenticate(region_name='us-west-2')
+        #Trying to hardcode authentication
+        aws = AWSSRP(username='user',
+                    password='pass,
+                    pool_id='cognito id',
+                    client_id='client id',
+                    pool_region='us-west-2')
 
         token = aws.authenticate_user()
         return token['AuthenticationResult']['IdToken']
-
+        
+        #Original method structure
+        #aws = AWSSRP(username=self._username,
+        #            password=self._password,
+        #            pool_id=self._cognito_pool_id,
+        #            client_id=self._client_id,
+        #            pool_region=self._region_name)
+    
     def _get_cognito_identity_id(self):
         auth_token = self._get_auth_token()
         response = self._cognito_identity_client.get_id(
@@ -101,5 +108,5 @@ class CognitoAuthenticator(Authenticator):
         self.session = boto3.Session(aws_access_key_id=response['Credentials']['AccessKeyId'],
                                 aws_secret_access_key=response['Credentials']['SecretKey'],
                                 aws_session_token=response['Credentials']['SessionToken'],
-                                region_name=self._region_name)
+                                region_name='us-west-2')
 
