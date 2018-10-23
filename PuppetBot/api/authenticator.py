@@ -64,7 +64,7 @@ class CognitoAuthenticator(Authenticator):
         super(CognitoAuthenticator, self).__init__(ctx)
         self._pool_full_name = 'cognito-idp.{}.amazonaws.com/{}'.format(
                                         self._cognito_pool_id.split('_')[0], self._cognito_pool_id)
-        self._cognito_identity_client = boto3.client('cognito-identity',region_name=self._region_name)
+        self._cognito_identity_client = boto3.client('cognito-identity',region_name='us-west-2')
         self._identity_id = self._get_cognito_identity_id()
         self.refresh()
 
